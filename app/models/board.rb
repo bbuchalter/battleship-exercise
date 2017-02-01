@@ -22,7 +22,7 @@ class Board
 
   def record_ship(ship)
     ship.coords.each do |coord|
-      @board[coord[0]][coord[1]].ship = ship
+      at(coord).ship = ship
     end
     @ships << ship
   end
