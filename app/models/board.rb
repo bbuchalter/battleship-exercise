@@ -12,7 +12,18 @@ class Board
     end
   end
 
+  def at(coords)
+    @board[coords[0]][coords[1]]
+  end
+
   def positions
     @board.flatten
+  end
+
+  def record_ship(ship)
+    ship.coords.each do |coord|
+      @board[coord[0]][coord[1]].ship = ship
+    end
+    @ships << ship
   end
 end
