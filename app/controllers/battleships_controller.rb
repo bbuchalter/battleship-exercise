@@ -9,9 +9,12 @@ class BattleshipsController < ApplicationController
   # harshly for having a problem that encourages it.
 
   def create
-    positions = JSON.parse(params['positions'])
+    coords = JSON.parse(params['positions'])
 
-    # Fill in body to initialize the game and return a 200 response
+    @@board = Board.new
+    coords.each do |coord|
+      @@board.record_ship(Ship.new(coord[0], coord[1]))
+    end
 
     render plain: "OK"
   end
@@ -20,8 +23,12 @@ class BattleshipsController < ApplicationController
     x = params['x'].to_i
     y = params['y'].to_i
 
-    # Fill in body to take x and y coordinates and return result as "miss", "hit" or "sunk"
-    result = nil
+    if @@board.at([x,y]).ship
+      result = nil
+    else
+      result = "miss"
+    end
+
     render plain: result
   end
 end

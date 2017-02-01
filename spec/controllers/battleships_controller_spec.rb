@@ -31,12 +31,6 @@ RSpec.describe BattleshipsController do
   end
 
   describe "PUT update.json" do
-    it "returns an empty string" do
-      put :update, params: { x: "0", y: "0" }, format: :json
-      expect(response.body).to eq ""
-      expect(response.status).to eq 200
-    end
-
     context "a ship is placed" do
       let(:positions) do
         [
@@ -52,7 +46,7 @@ RSpec.describe BattleshipsController do
       context "and the shot misses" do
         let(:shot) { { x: "1", y: "1" } }
 
-        it "returns 'miss'", :pending do
+        it "returns 'miss'" do
           put :update, params: shot, format: :json
           expect(response.body).to eq "miss"
         end
