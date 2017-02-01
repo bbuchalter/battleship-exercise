@@ -1,5 +1,6 @@
 class BattleshipsController < ApplicationController
 
+  @@board = Board.new
   skip_before_action :verify_authenticity_token
 
   # Feel free to use a class variable, cache or other form of storage to solve this problem.
@@ -11,7 +12,6 @@ class BattleshipsController < ApplicationController
   def create
     coords = JSON.parse(params['positions'])
 
-    @@board = Board.new
     coords.each do |coord|
       @@board.record_ship(Ship.new(coord[0], coord[1]))
     end
@@ -23,8 +23,18 @@ class BattleshipsController < ApplicationController
     x = params['x'].to_i
     y = params['y'].to_i
 
-    if @@board.at([x,y]).ship
-      result = nil
+    position = @@board.at([x,y])
+    position.shot_upon = true
+
+    ship = position.ship
+    if ship
+      position.hit = true
+
+      if ship.positions(@@board).all?(&:hit)
+        result = "sunk"
+      else
+        result = "hit"
+      end
     else
       result = "miss"
     end

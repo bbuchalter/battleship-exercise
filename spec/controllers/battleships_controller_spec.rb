@@ -55,7 +55,7 @@ RSpec.describe BattleshipsController do
       context "and the shot hits" do
         let(:shot) { { x: "0", y: "1" } }
 
-        it "returns 'hit'", :pending do
+        it "returns 'hit'" do
           put :update, params: shot, format: :json
           expect(response.body).to eq "hit"
         end
@@ -69,7 +69,7 @@ RSpec.describe BattleshipsController do
         context "and the next shot is a hit" do
           let(:shot) { { x: "0", y: "1" } }
 
-          it "returns 'sunk'", :pending do
+          it "returns 'sunk'" do
             put :update, params: shot, format: :json
             expect(response.body).to eq "sunk"
           end
