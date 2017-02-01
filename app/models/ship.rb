@@ -10,7 +10,7 @@ class Ship
     @orientation = orientation
   end
 
-  def positions
+  def coords
     (0..(@length - 1)).map do |offset|
       if @orientation == VERTICAL
         [
