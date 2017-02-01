@@ -25,4 +25,8 @@ class Ship
       end
     end
   end
+
+  def positions(board)
+    coords.map { |coord| board.at(coord) }
+  end
 end
