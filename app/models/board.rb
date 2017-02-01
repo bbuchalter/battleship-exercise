@@ -26,4 +26,11 @@ class Board
     end
     @ships << ship
   end
+
+  def valid?(coord)
+    (coord[0] < @rows) &&
+      (coord[0] >= 0) &&
+      (coord[1] < @cols) &&
+      (coord[1] >= 0)
+  end
 end

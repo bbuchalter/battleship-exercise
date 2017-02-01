@@ -33,4 +33,38 @@ RSpec.describe Board do
       }.from([nil, nil, nil]).to([ship, ship, ship])
     end
   end
+
+  describe "#valid?" do
+    subject { described_class.new.valid?(coord) }
+
+    context "when [0,0]" do
+      let(:coord) { [0,0] }
+      it { is_expected.to eq true }
+    end
+
+    context "when [9,9]" do
+      let(:coord) { [9,9] }
+      it { is_expected.to eq true }
+    end
+
+    context "when [-1,0]" do
+      let(:coord) { [-1,0] }
+      it { is_expected.to eq false }
+    end
+
+    context "when [0,-1]" do
+      let(:coord) { [0,-1] }
+      it { is_expected.to eq false }
+    end
+
+    context "when [10,0]" do
+      let(:coord) { [10,0] }
+      it { is_expected.to eq false }
+    end
+
+    context "when [0,10]" do
+      let(:coord) { [0,10] }
+      it { is_expected.to eq false }
+    end
+  end
 end
