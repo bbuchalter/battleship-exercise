@@ -23,7 +23,7 @@ RSpec.describe BattleshipsController do
           [11, 11]
         ]
       end
-      it "returns 422", :pending do
+      it "returns 422" do
         post :create, params: { positions: positions.to_json }, format: :json
         expect(response.status).to eq 422
       end
@@ -80,7 +80,7 @@ RSpec.describe BattleshipsController do
     context "when shot is invalid" do
       let(:shot) { { x: "11", y: "11" } }
 
-      it "returns 422", :pending do
+      it "returns 422" do
         put :update, params: shot, format: :json
         expect(response.status).to eq 422
       end

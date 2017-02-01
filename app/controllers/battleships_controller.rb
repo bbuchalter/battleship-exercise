@@ -13,7 +13,11 @@ class BattleshipsController < ApplicationController
 
     @@board = Board.new
     coords.each do |coord|
-      @@board.record_ship(Ship.new(coord[0], coord[1]))
+      begin
+        @@board.record_ship(Ship.new(coord[0], coord[1]))
+      rescue Board::InvalidCoordinate
+        render plain: "Unprocessable Entity", status: 422 and return
+      end
     end
 
     render plain: "OK"
@@ -23,7 +27,12 @@ class BattleshipsController < ApplicationController
     x = params['x'].to_i
     y = params['y'].to_i
 
-    position = @@board.at([x,y])
+    begin
+      position = @@board.at([x,y])
+    rescue Board::InvalidCoordinate
+      render plain: "Unprocessable Entity", status: 422 and return
+    end
+
     position.shot_upon = true
 
     ship = position.ship
