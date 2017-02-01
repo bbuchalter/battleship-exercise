@@ -67,4 +67,24 @@ RSpec.describe Board do
       it { is_expected.to eq false }
     end
   end
+
+  describe "#at" do
+    subject { described_class.new.at(coord) }
+
+    context "with a valid coordinate" do
+      let(:coord) { [0,1] }
+      it "returns a position with a matching coordinate" do
+        expect(subject).to be_a Position
+        expect(subject.x).to eq 0
+        expect(subject.y).to eq 1
+      end
+    end
+
+    context "with an invalid coordinate" do
+      let(:coord) { [11,-1] }
+      it "raises an exception" do
+        expect { subject }.to raise_error Board::InvalidCoordinate
+      end
+    end
+  end
 end

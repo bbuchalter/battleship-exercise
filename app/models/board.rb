@@ -13,6 +13,7 @@ class Board
   end
 
   def at(coord)
+    raise InvalidCoordinate unless valid?(coord)
     @board[coord[0]][coord[1]]
   end
 
@@ -33,4 +34,8 @@ class Board
       (coord[1] < @cols) &&
       (coord[1] >= 0)
   end
+
+  private
+
+  InvalidCoordinate = Class.new(StandardError)
 end
