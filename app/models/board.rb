@@ -12,8 +12,8 @@ class Board
     end
   end
 
-  def at(coords)
-    @board[coords[0]][coords[1]]
+  def at(coord)
+    @board[coord[0]][coord[1]]
   end
 
   def positions
