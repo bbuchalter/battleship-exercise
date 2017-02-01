@@ -22,5 +22,27 @@ RSpec.describe BattleshipsController do
       expect(response.body).to eq ""
       expect(response.status).to eq 200
     end
+
+    context "a ship is placed" do
+      context "and the shot misses" do
+        it "returns 'miss'", :pending do
+          expect(response.body).to eq "miss"
+        end
+      end
+
+      context "and the shot hits" do
+        it "returns 'hit'", :pending do
+          expect(response.body).to eq "hit"
+        end
+      end
+
+      context "and is one hit away from sunk" do
+        context "and the next shot is a hit" do
+          it "returns 'sunk'", :pending do
+            expect(response.body).to eq "sunk"
+          end
+        end
+      end
+    end
   end
 end
