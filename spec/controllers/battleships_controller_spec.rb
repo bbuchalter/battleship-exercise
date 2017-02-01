@@ -38,21 +38,45 @@ RSpec.describe BattleshipsController do
     end
 
     context "a ship is placed" do
+      let(:positions) do
+        [
+          [0, 3]
+        ]
+      end
+
+      before do
+        # Ships will be placed at `[[0,3],[0,2],[0,1]]`
+        post :create, params: { positions: positions.to_json }, format: :json
+      end
+
       context "and the shot misses" do
+        let(:shot) { { x: "1", y: "1" } }
+
         it "returns 'miss'", :pending do
+          put :update, params: shot, format: :json
           expect(response.body).to eq "miss"
         end
       end
 
       context "and the shot hits" do
+        let(:shot) { { x: "0", y: "1" } }
+
         it "returns 'hit'", :pending do
+          put :update, params: shot, format: :json
           expect(response.body).to eq "hit"
         end
       end
 
       context "and is one hit away from sunk" do
+        before do
+          put :update, params: { x: "0", y: "3" }, format: :json
+          put :update, params: { x: "0", y: "2" }, format: :json
+        end
         context "and the next shot is a hit" do
+          let(:shot) { { x: "0", y: "1" } }
+
           it "returns 'sunk'", :pending do
+            put :update, params: shot, format: :json
             expect(response.body).to eq "sunk"
           end
         end
